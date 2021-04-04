@@ -29,9 +29,9 @@ public class MainApp {
 //         System.out.println("Email = "+user.getEmail());
 //         System.out.println();
 //      }
-      Car car13 = new Car("model13",13);
-      userService.add(new User("User13", "LastName13", "user13@mail.ru", car13));
-      System.out.println(userService.getUserByCar("model13", 13));
+      Car car15 = new Car("model15",15);
+      userService.add(new User("User15", "LastName15", "user13@mail.ru", car15));
+      System.out.println(userService.getUserByCar("model15", 15));
       context.close();
    }
 }

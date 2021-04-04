@@ -40,14 +40,11 @@ public class UserDaoImp implements UserDao {
       session = sessionFactory.openSession();
       try {
          transaction = session.beginTransaction();
-         Query query = session.createQuery("FROM Car where model = :paramModel and series = :paramSeries ", Car.class);
+         Query query = session.createQuery("select user from User user " +
+                 "left join user.car car where car.model = :paramModel and car.series = :paramSeries");
          query.setParameter("paramModel", model);
          query.setParameter("paramSeries", series);
-         carId = ((Car) query.getSingleResult()).getID();
-
-         Query query1 = session.createQuery("FROM User u INNER JOIN u.car c where c.id = :paramCarID");
-         query1.setParameter("paramCarID", carId);
-         user = (User) query1.getSingleResult();
+         user = (User) query.getSingleResult();
          transaction.commit();
       } catch (HibernateException e) {
          e.printStackTrace();
