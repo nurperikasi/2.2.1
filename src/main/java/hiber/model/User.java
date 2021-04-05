@@ -78,22 +78,11 @@ public class User {
 
    @Override
    public String toString() {
-      String str;
-      if (car != null) {
-         str = "User{" +
-              "car=" + car +
-              ", id=" + id +
+      return "User{"  +
+              "id=" + id +
               ", firstName='" + firstName + '\'' +
               ", lastName='" + lastName + '\'' +
               ", email='" + email + '\'' +
               '}';
-   }
-      str = "User{"  +
-              ", id=" + id +
-              ", firstName='" + firstName + '\'' +
-              ", lastName='" + lastName + '\'' +
-              ", email='" + email + '\'' +
-              '}';
-      return str;
    }
 }

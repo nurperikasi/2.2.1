@@ -9,8 +9,10 @@ import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -34,17 +36,16 @@ public class UserDaoImp implements UserDao {
 
    @Override
    public User getUserByCar(String model, int series) {
-      User user = null;
-      long carId = 0;
+      List<User> list = null;
       Transaction transaction = null;
       session = sessionFactory.openSession();
       try {
          transaction = session.beginTransaction();
-         Query query = session.createQuery("select user from User user " +
+         TypedQuery<User> query = session.createQuery("select user from User user " +
                  "left join user.car car where car.model = :paramModel and car.series = :paramSeries");
          query.setParameter("paramModel", model);
          query.setParameter("paramSeries", series);
-         user = (User) query.getSingleResult();
+         list = query.getResultList();
          transaction.commit();
       } catch (HibernateException e) {
          e.printStackTrace();
@@ -54,7 +55,7 @@ public class UserDaoImp implements UserDao {
          }
          session.close();
       }
-      return user;
+      return list.get(0);
    }
 }
 
